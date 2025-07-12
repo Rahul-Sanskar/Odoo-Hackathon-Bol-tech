@@ -300,7 +300,7 @@ The frontend of the *SkillSwap Platform, a web app where users can exchange and 
 - *Form Handling:* React Hook Form / Native
 
 ---
-
+Video link - https://drive.google.com/file/d/1qSU931VLbbwtqCE_lrBYFcE1ch189gvB/view?usp=sharing
 ## Upcoming Features
 
 - ✅ Sentiment Analysis on Feedback (Feature 6)
