@@ -225,40 +225,40 @@ skill-swap-platform/
 │   ├── run.py
 │   └── skillswap.db
 ```
-Troubleshooting
-
-Database Issues:
-
-- If skillswap.db fails to create, use absolute path in .env and alembic.ini:DATABASE_URL=sqlite:///D:/path/to/skill-swap-platform/backend/skillswap.db
+## Testing results
+![Test Result](https://raw.githubusercontent.com/Rahul-Sanskar/Odoo-Hackathon-Bol-tech/main/Screenshot%202025-07-12%20164759.png)
 
 
-- Ensure skillswap.db is writable (right-click, Properties, Security, grant write access).
-- Reset database if needed:del skillswap.db
-```bash
-alembic upgrade head
-```
+## Troubleshooting
+
+- ### Database Issues:
+
+    - If skillswap.db fails to create, use absolute path in .env and alembic.ini:DATABASE_URL=sqlite:///D:/path/to/skill-swap-platform/backend/skillswap.db
 
 
+    - Ensure skillswap.db is writable (right-click, Properties, Security, grant write access).
+    - Reset database if needed:del skillswap.db
+    ```bash
+    alembic upgrade head
+    ```
 
-Pydantic V2 Warning:
+- ### Pydantic V2 Warning:
 
-- Ensure all Pydantic models (e.g., in app/schemas/skill.py, app/schemas/swap.py) use:
-```python
-class Config:
-    from_attributes = True
-```
+    - Ensure all Pydantic models (e.g., in app/schemas/skill.py, app/schemas/swap.py) use:
+    ```python
+    class Config:
+        from_attributes = True
+    ```
 
+- ### NameError for Models:
 
-
-NameError for Models:
-
-- Verify app/api/v1/models.py defines UserResponse and is imported in skills.py, swaps.py, etc.
-- Check app/core/security.py for correct UserResponse import in get_current_user.
+    - Verify app/api/v1/models.py defines UserResponse and is imported in skills.py, swaps.py, etc.
+    - Check app/core/security.py for correct UserResponse import in get_current_user.
 
 
-Migration Errors:
+- ### Migration Errors:
 
-- If alembic upgrade head fails, delete alembic/versions/*.py and reapply the migration.
+    - If alembic upgrade head fails, delete alembic/versions/*.py and reapply the migration.
 
 
 
