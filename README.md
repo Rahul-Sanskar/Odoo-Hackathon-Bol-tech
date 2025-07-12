@@ -320,15 +320,13 @@ Video link - https://drive.google.com/file/d/1qSU931VLbbwtqCE_lrBYFcE1ch189gvB/v
 ☁️ Colab + HuggingFace for modeling
 
 ------
-👤 Esan Raj (Backend Developer)
+👤 Esan Raj and Tanmay Sontakke (Backend Developer)
 
-🤖 AI Assist via Grok
+🤖 Database
 
 ☁️ Backend in FastAPI
 
 ----
 👤 Inzamam-ul-Haque (Frontend Developer)
-
-🤖 AI Assist via OpenAI + GitHub Copilot
 
 ☁️ ReactJS + Material UI for Frontend
