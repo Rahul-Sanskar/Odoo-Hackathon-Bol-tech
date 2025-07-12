@@ -22,9 +22,9 @@ def upgrade():
         sa.Column('hashed_password', sa.String(), nullable=False),
         sa.Column('location', sa.String(), nullable=True),
         sa.Column('profile_photo', sa.String(), nullable=True),
-        sa.Column('is_public', sa.Boolean(), nullable=False),
-        sa.Column('is_admin', sa.Boolean(), nullable=False),
-        sa.Column('created_at', sa.DateTime(), nullable=False),
+        sa.Column('is_public', sa.Boolean(), nullable=False, server_default='true'),
+        sa.Column('is_admin', sa.Boolean(), nullable=False, server_default='false'),
+        sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.func.now()),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('email')
     )
@@ -39,8 +39,8 @@ def upgrade():
         sa.Column('description', sa.String(), nullable=True),
         sa.Column('is_offered', sa.Boolean(), nullable=False),
         sa.Column('availability', sa.String(), nullable=True),
-        sa.Column('created_at', sa.DateTime(), nullable=False),
-        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+        sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_skills_id'), 'skills', ['id'], unique=False)
@@ -52,12 +52,12 @@ def upgrade():
         sa.Column('receiver_id', sa.Integer(), nullable=False),
         sa.Column('skill_offered_id', sa.Integer(), nullable=False),
         sa.Column('skill_wanted_id', sa.Integer(), nullable=False),
-        sa.Column('status', sa.String(), nullable=False),
-        sa.Column('created_at', sa.DateTime(), nullable=False),
-        sa.ForeignKeyConstraint(['initiator_id'], ['users.id'], ),
-        sa.ForeignKeyConstraint(['receiver_id'], ['users.id'], ),
-        sa.ForeignKeyConstraint(['skill_offered_id'], ['skills.id'], ),
-        sa.ForeignKeyConstraint(['skill_wanted_id'], ['skills.id'], ),
+        sa.Column('status', sa.String(), nullable=False, server_default='pending'),
+        sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.ForeignKeyConstraint(['initiator_id'], ['users.id'], ondelete='CASCADE'),
+        sa.ForeignKeyConstraint(['receiver_id'], ['users.id'], ondelete='CASCADE'),
+        sa.ForeignKeyConstraint(['skill_offered_id'], ['skills.id'], ondelete='CASCADE'),
+        sa.ForeignKeyConstraint(['skill_wanted_id'], ['skills.id'], ondelete='CASCADE'),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_swaps_id'), 'swaps', ['id'], unique=False)
@@ -69,9 +69,9 @@ def upgrade():
         sa.Column('swap_id', sa.Integer(), nullable=False),
         sa.Column('rating', sa.Integer(), nullable=False),
         sa.Column('comment', sa.String(), nullable=True),
-        sa.Column('created_at', sa.DateTime(), nullable=False),
-        sa.ForeignKeyConstraint(['swap_id'], ['swaps.id'], ),
-        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+        sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.ForeignKeyConstraint(['swap_id'], ['swaps.id'], ondelete='CASCADE'),
+        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_feedback_id'), 'feedback', ['id'], unique=False)

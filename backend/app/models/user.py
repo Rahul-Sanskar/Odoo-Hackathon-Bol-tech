@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from app.core.database import Base
 from datetime import datetime
@@ -13,7 +14,7 @@ class User(Base):
     profile_photo = Column(String, nullable=True)
     is_public = Column(Boolean, default=True)
     is_admin = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, server_default=func.now())
     skills = relationship("Skill", back_populates="user")
     swaps_initiated = relationship("Swap", back_populates="initiator", foreign_keys="[Swap.initiator_id]")
     swaps_received = relationship("Swap", back_populates="receiver", foreign_keys="[Swap.receiver_id]")
